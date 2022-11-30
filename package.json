@@ -1,0 +1,75 @@
+{
+  "name": "pano-sphere-viewer",
+  "version": "0.0.2",
+  "description": "A JavaScript library to display Pano Sphere panoramas",
+  "main": "dist/pano-sphere-viewer.js",
+  "directories": {
+    "example": "example",
+    "test": "tests"
+  },
+  "dependencies": {
+    "d.js": "^0.7.5",
+    "dot": "^1.1.2",
+    "three": "^0.92.0",
+    "uevent": "^1.0.0"
+  },
+  "devDependencies": {
+    "foodoc": "^0.0.9",
+    "grunt": "^1.0.0",
+    "grunt-banner": "^0.6.0",
+    "grunt-contrib-clean": "^1.0.0",
+    "grunt-contrib-concat": "^1.0.0",
+    "grunt-contrib-connect": "^1.0.0",
+    "grunt-contrib-copy": "^1.0.0",
+    "grunt-contrib-cssmin": "^2.0.0",
+    "grunt-contrib-jshint": "^1.0.0",
+    "grunt-contrib-uglify": "^3.0.0",
+    "grunt-contrib-watch": "^1.0.0",
+    "grunt-jscs": "^3.0.1",
+    "grunt-jsdoc": "^2.1.0",
+    "grunt-mocha-test": "^0.13.2",
+    "grunt-open": "^0.2.3",
+    "grunt-sass": "^2.1.0",
+    "grunt-sass-lint": "^0.2.2",
+    "grunt-wrap": "^0.3.0",
+    "jit-grunt": "^0.10.0",
+    "mocha": "^5.0.0",
+    "nosleep.js": "^0.7.0",
+    "simple-cli": "^5.0.0",
+    "time-grunt": "^1.3.0"
+  },
+  "scripts": {
+    "test": "grunt test",
+    "start": "grunt serve"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sundaywill/pano-sphere-viewer.git"
+  },
+  "keywords": [
+    "sphere"
+  ],
+  "author": "sundaywill",
+  "authors": [
+    {
+      "name": "Jérémy Heleine",
+      "email": "jeremy.heleine@gmail.com",
+      "homepage": "http://jeremyheleine.me"
+    },
+    {
+      "name": "Damien \"Mistic\" Sorel",
+      "email": "contact@git.strangeplanet.fr",
+      "homepage": "https://www.strangeplanet.fr"
+    },
+    {
+      "name": "Sunday Will",
+      "email": "sundaywillx@gmail.com",
+      "homepage": "https://github.com/sundaywill/pano-sphere-viewer"
+    }
+  ],
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/sundaywill/pano-sphere-viewer/issues"
+  },
+  "homepage": "https://github.com/sundaywill/pano-sphere-viewer#readme"
+}

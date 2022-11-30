@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <link rel="stylesheet" href="../dist/pano-sphere-viewer.min.css">
+
+  <style>
+    html, body {
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      margin: 0;
+      padding: 0;
+    }
+
+    #panosphere {
+      width: 100%;
+      height: 100%;
+    }
+
+    .psv-button.custom-button {
+      font-size: 22px;
+      line-height: 20px;
+    }
+
+    .psv-canvas-container {
+      height: 1000px;
+    }
+  </style>
+</head>
+<body>
+
+<div id="panosphere"></div>
+
+<script src="../node_modules/three/build/three.js"></script>
+<script src="../node_modules/d.js/lib/D.js"></script>
+<script src="../node_modules/uevent/uevent.js"></script>
+<script src="../node_modules/dot/doT.js"></script>
+<script src="../node_modules/nosleep.js/dist/NoSleep.js"></script>
+<script src="../node_modules/three/examples/js/renderers/CanvasRenderer.js"></script>
+<script src="../node_modules/three/examples/js/renderers/Projector.js"></script>
+<script src="../node_modules/three/examples/js/controls/DeviceOrientationControls.js"></script>
+<script src="../node_modules/three/examples/js/effects/StereoEffect.js"></script>
+<script src="../dist/pano-sphere-viewer.js"></script>
+
+<script>
+  var panos = [
+    {
+      url: {
+        left: 'suntemple-cubemap/left.jpg',
+        front: 'suntemple-cubemap/front.jpg',
+        right: 'suntemple-cubemap/right.jpg',
+        back: 'suntemple-cubemap/back.jpg',
+        top: 'suntemple-cubemap/top.jpg',
+        bottom: 'suntemple-cubemap/bottom.jpg'
+      },
+      desc: 'Sun Temple (Unreal 4)'
+    },
+    {
+      url: [
+        'test-cubemap/1.png',
+        'test-cubemap/2.png',
+        'test-cubemap/3.png',
+        'test-cubemap/4.png',
+        'test-cubemap/5.png',
+        'test-cubemap/6.png'
+      ],
+      desc: 'Test cubemap'
+    }
+  ];
+
+  var PSV = new PanoSphereViewer({
+    container: 'panosphere',
+    panorama: panos[0].url,
+    caption: panos[0].desc,
+    //fisheye: true,
+    //webgl: false,
+    time_anim: false,
+    default_long: Math.PI / 2,
+    loading_img: 'assets/photosphere-logo.gif',
+    navbar: [
+      'autorotate', 'zoom', 'download', 'markers',
+      'spacer-1',
+      {
+        title: 'Change image',
+        className: 'custom-button',
+        content: '↻',
+        onClick: (function() {
+          var i = 0;
+
+          return function() {
+            i = 1 - i;
+            PSV.clearMarkers();
+
+            PSV.setPanorama(panos[i].url)
+              .then(function() {
+                PSV.setCaption(panos[i].desc);
+              });
+          }
+        }())
+      },
+      'caption', 'gyroscope', 'stereo', 'fullscreen'
+    ],
+    markers: (function() {
+      var a = [];
+      for (var i = 0; i < Math.PI * 2; i += Math.PI / 4) {
+        for (var j = -Math.PI / 2 + Math.PI / 4; j < Math.PI / 2; j += Math.PI / 4) {
+          a.push({
+            id: '#' + a.length,
+            tooltip: '#' + a.length,
+            latitude: j,
+            longitude: i,
+            image: 'assets/pin1.png',
+            width: 32,
+            height: 32,
+            anchor: 'bottom center',
+            data: {
+              deletable: true
+            }
+          });
+        }
+      }
+
+      return a;
+    }())
+  });
+
+  PSV.on('click', function(e) {
+    if (e.marker) {
+      return;
+    }
+    PSV.addMarker({
+      id: '#' + Math.random(),
+      tooltip: 'Generated marker',
+      longitude: e.longitude,
+      latitude: e.latitude,
+      image: 'assets/pin1.png',
+      width: 32,
+      height: 32,
+      anchor: 'bottom center',
+      data: {
+        deletable: true
+      }
+    });
+  });
+
+  PSV.on('select-marker', function(marker) {
+    if (marker.data && marker.data.deletable) {
+      PSV.removeMarker(marker);
+    }
+  });
+</script>
+
+<script>
+  document.write('<script src="//' + location.host.split(':')[0] + ':35729/livereload.js" async defer><' + '/script>');
+</script>
+</body>
+</html>
